@@ -160,5 +160,6 @@ const app = http.createServer(function(request, response){
   }
 });
 
-const PORT = process.env.PORT || 3000; // render는 이거 써야. app에 요청 시 내부 포트 지정하는데 3000 고정하면 외부 접속 X -> 502
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+app.listen(3000, '0.0.0.0', () => {
+  console.log('Server listening on port 3000');
+});
