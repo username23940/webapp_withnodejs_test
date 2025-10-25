@@ -67,8 +67,8 @@ const app = http.createServer(function(request, response){
       const list = template.list(filelist);
       const html = template.html(title, list,
         `<form action="/create_process" method="post" accept-charset="UTF-8">
-           <p><input type="text" name="title" placeholder="title"></p>
-           <p><textarea name="description" placeholder="description"></textarea></p>
+           <p><input type="text" name="title" placeholder="title(only en)"></p>
+           <p><textarea name="description" placeholder="description(only en)"></textarea></p>
            <p><input type="submit"></p>
          </form>`, '');
       response.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
@@ -108,8 +108,8 @@ const app = http.createServer(function(request, response){
         const html = template.html(title, list,
           `<form action="/update_process" method="post" accept-charset="UTF-8">
              <input type="hidden" name="id" value="${title}">
-             <p><input type="text" name="title" placeholder="title" value="${title}"></p>
-             <p><textarea name="description" placeholder="description">${description}</textarea></p>
+             <p><input type="text" name="title" placeholder="title(only en)" value="${title}"></p>
+             <p><textarea name="description" placeholder="description(only en)">${description}</textarea></p>
              <p><input type="submit"></p>
            </form>`, '');  // 수정이므로 값이 미리 존재해야함. query string으로 value 속성 활용
         response.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
