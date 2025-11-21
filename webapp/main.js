@@ -154,6 +154,38 @@ const app = http.createServer(function(request, response){
         response.end();
       });
     });
+  } else if (pathname === '/login') {
+    fs.readdir(filepath, function(err, filelist){
+        if(err){ // 모든 async 함수에 오류 처리 필요
+          console.error(err);
+          response.writeHead(500);
+          return response.end('Internal Server Error');
+        }
+        const title = 'Login';
+        const description = 'Login to control';
+        const list = template.list(filelist);
+        const html = template.html(title, list, 
+                                   `<form action='/login_process' method='post'>
+                                     <p><input type='text' name='email' placeholder='email'></p>
+                                     <p><input type='password' name='password' placeholder='password'></p> // 가림 처리
+                                     <p><input type='submit'></p>
+                                   </form>`, 
+                                   `<a href="/create">create</a>`);
+        response.writeHead(200, {'Content-Type':'text/html; charset=utf-8'});
+        response.end(html);
+      });
+  } else if (pathname === '/login_process') {
+    let body = '';
+    request.on('data', chunk => { body += chunk; });  
+    const post = qs.parse(body);
+      if (post.email==='hi@naver.com' && post.password ==='1111') {
+        response.writeHead(302, { 
+                           'Set-Cookie':[`email=${post.email}`, `password=${post.password}`],  
+                            Location: '/'});
+      response.end();  
+      else {
+        response.end('who?');
+      }
   } else {
     response.writeHead(404);
     response.end('Not Found');
