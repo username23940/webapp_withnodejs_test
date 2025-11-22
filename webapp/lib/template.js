@@ -2,7 +2,7 @@
 
 // template 객체
 module.exports = {
-  html: function(_title, _list, _body, _control){
+  html: function(_title, _list, _body, _control, authStatusUI = <a href="/login">login</a>){ // authStatusUI는 기본 매개변수로 매개변수 따로 안들어오면 login 화면 
     return `
     <!doctype html>
     <html>
@@ -11,7 +11,8 @@ module.exports = {
       <meta charset="utf-8">
     </head>
     <body>
-      <a href="/login">login</a>
+      ${authStatusUI}
+      
       <h1><a href="/">WEB</a></h1>
       <p><input type='button' value='night' onclick="nightDayHandler(this)"></p>
       ${_list} <!-- readdir을 통해 파일 목록 배열로 저장한 것을 바탕으로 목록 재정의-->
